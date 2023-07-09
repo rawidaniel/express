@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 
 
 userSchema.pre('save', function(next) {
-  console.log(this);
+  // console.log(this);
 
   next();
 });

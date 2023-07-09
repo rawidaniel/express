@@ -12,7 +12,7 @@ const User = require('../models/userModel');
       });
     }
     const newUser = await User.create(req.body);
-    res.status(201).json({status: "success", data: newUser})
+    res.status(201).json({status: "success", data:newUser })
   } catch(err){
     res.status(400).json({
       status: 'fail',
@@ -22,4 +22,24 @@ const User = require('../models/userModel');
 
 }
 
-exports.findUser = async (req, res) => {}
+exports.findUser = async (req, res) => {
+
+  try{
+
+    const user = await User.findOne({ email: req.params.email });
+
+    if (!user) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'user not found'
+      });
+    }
+    
+    res.status(201).json({status: "success", data: user})
+  } catch(err){
+    res.status(400).json({
+      status: 'fail',
+      message: err.message
+    });
+  }
+}
